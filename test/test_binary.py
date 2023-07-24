@@ -34,9 +34,9 @@ class TestBinary(unittest.TestCase):
     def test_byte_swap(self):
         data = Binary(500)
         data.byte_swap()
-        self.assertEqual(data.value, 20480)
+        self.assertEqual(data.value, 62465)
 
 if __name__ == '__main__':
     unittest.main()
 
-#run python -m unittest test.test_binary
+#run python3 -m unittest test.test_binary

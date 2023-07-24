@@ -37,25 +37,25 @@ class Binary:
     def get_bit(self, position):
         return (self.value >> position) & 1
     
-        def bit_operation(self, operation, other):
-            if operation == 'and':
-                return self.value & other
-            elif operation == 'or':
-                return self.value | other
-            elif operation == 'xor':
-                return self.value ^ other
-            elif operation == 'not':
-                return ~self.value
-            elif operation == 'shift_left':
-                if other < 0:
-                    raise ValueError("Cannot shift by a negative value.")
-                return self.value << other
-            elif operation == 'shift_right':
-                if other < 0:
-                    raise ValueError("Cannot shift by a negative value.")
-                return self.value >> other
-            else:
-                raise ValueError("Invalid operation. Available operations are 'and', 'or', 'xor', 'not', 'shift_left', 'shift_right'.")
+    def bit_operation(self, operation, other):
+        if operation == 'and':
+            return self.value & other
+        elif operation == 'or':
+            return self.value | other
+        elif operation == 'xor':
+            return self.value ^ other
+        elif operation == 'not':
+            return ~self.value
+        elif operation == 'shift_left':
+            if other < 0:
+                raise ValueError("Cannot shift by a negative value.")
+            return self.value << other
+        elif operation == 'shift_right':
+            if other < 0:
+                raise ValueError("Cannot shift by a negative value.")
+            return self.value >> other
+        else:
+            raise ValueError("Invalid operation. Available operations are 'and', 'or', 'xor', 'not', 'shift_left', 'shift_right'.")
     
     def to_hex(self):
         return hex(self.value)
@@ -69,6 +69,14 @@ class Binary:
     def from_bin(self, bin_string):
         self.value = int(bin_string, 2)
 
+    # def byte_swap(self):
+    #     byte_length = (self.value.bit_length() + 7) // 8
+    #     if byte_length % 2 != 0:
+    #         raise ValueError("Cannot swap an odd number of bytes.")
+    #     byte_data = self.value.to_bytes(byte_length, byteorder=self.byte_order)
+    #     swapped_bytes = byte_data[::-1]
+    #     self.value = int.from_bytes(swapped_bytes, byteorder=self.byte_order)
+    #     self.byte_order = 'big' if self.byte_order == 'little' else 'little'
     def byte_swap(self):
         byte_length = (self.value.bit_length() + 7) // 8
         if byte_length % 2 != 0:
@@ -78,9 +86,12 @@ class Binary:
         self.value = int.from_bytes(swapped_bytes, byteorder=self.byte_order)
         self.byte_order = 'big' if self.byte_order == 'little' else 'little'
 
+
     def byte_padding(self, align):
         if align <= 0:
             raise ValueError("Alignment must be greater than 0.")
         byte_length = (self.value.bit_length() + 7) // 8
         padding = align - (byte_length % align)
         self.value <<= padding * 8
+
+        
