@@ -4,7 +4,7 @@
 Binary data is the most basic and fundamental form of data. It's represented using only two states, typically denoted as 0 and 1. All data stored and processed by a computer ultimately gets represented as binary data at the lowest level.
 
 ### The purpose of the Binary Package ###
-This Binarypackage is designed to provide an efficient and intuitive way to manipulate binary data in Python. It provides a Binary class that allows to perform various operations on binary data, such as swapping byte order (endianness), applying byte padding, performing bit-level operations, and coverting binary data to and from hex, int and byte string formats. The package aims to simplify working with binary data and bit manipulations.
+This Binarypackage is designed to provide an efficient and intuitive way to manipulate binary data in Python. BINARYPACKAGE/binary/binary.py contains all the related functions and test/test_binary.py contains the unit tests.This package provides a Binary class that allows to perform various operations on binary data, such as swapping byte order (endianness), applying byte padding, performing bit-level operations, and coverting binary data to and from hex, int and byte string formats. The package aims to simplify working with binary data and bit manipulations. 
 
 ## explanation of the Binary object and its properties. ##
 
@@ -38,4 +38,4 @@ data = Binary(123, 'little')
 
 ## How to run test file ##
 
-cd to the package then run python3 -m unittest test.test_binary
+cd to the package then run 'python3 -m unittest test.test_binary'
