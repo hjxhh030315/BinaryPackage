@@ -43,6 +43,7 @@ class TestBinary(unittest.TestCase):
             Binary(-500)
         with self.assertRaises(ValueError):
             Binary("invalid")
+    
 
     def test_bit_operation(self):
         data = Binary(500)
@@ -59,6 +60,14 @@ class TestBinary(unittest.TestCase):
         data = Binary(0x12345678)
         data.byte_swap()
         self.assertEqual(data.value, 2018915346)
+
+    def test_byte_padding(self):
+        data = Binary(0x1234)  # 0x1234 is 4660 which requires 2 bytes
+        data.byte_padding(4)  # Padding to align to a 4-byte boundary
+    # After padding, the byte representation of data.value should have 4 bytes
+        byte_data = data.to_bytes(4, byte_order='big')
+        self.assertEqual(len(byte_data), 4)
+
 
 if __name__ == '__main__':
     unittest.main()

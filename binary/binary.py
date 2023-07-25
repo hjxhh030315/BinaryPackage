@@ -55,7 +55,7 @@ class Binary:
                 raise ValueError("Cannot shift by a negative value.")
             return self.value >> other
         else:
-            raise ValueError("Invalid operation. Available operations are 'and', 'or', 'xor', 'not', 'shift_left', 'shift_right'.")
+            raise ValueError("Invalid operation. Available operations are only 'and', 'or', 'xor', 'not', 'shift_left', 'shift_right'.")
     
     def to_hex(self):
         return hex(self.value)
@@ -77,19 +77,13 @@ class Binary:
         swapped_bytes = byte_data[::-1]
         self.value = int.from_bytes(swapped_bytes, byteorder=self.byte_order)
         self.byte_order = 'big' if self.byte_order == 'little' else 'little'
-    # def byte_swap(self):
-    #     byte_length = (self.value.bit_length() + 7) // 8
-    #     byte_data = self.value.to_bytes(byte_length, byteorder='big')
-    #     swapped_bytes = byte_data[::-1]
-    #     return int.from_bytes(swapped_bytes, byteorder='big')
-
-
 
     def byte_padding(self, align):
         if align <= 0:
             raise ValueError("Alignment must be greater than 0.")
         byte_length = (self.value.bit_length() + 7) // 8
-        padding = align - (byte_length % align)
-        self.value <<= padding * 8
+        padding = (align - byte_length % align) % align
+        self.value = int.from_bytes(self.value.to_bytes(byte_length, byteorder=self.byte_order) + b'\x00' * padding, byteorder=self.byte_order)
+
 
         
