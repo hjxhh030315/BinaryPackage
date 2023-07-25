@@ -79,12 +79,11 @@ class Binary:
     #     self.byte_order = 'big' if self.byte_order == 'little' else 'little'
     def byte_swap(self):
         byte_length = (self.value.bit_length() + 7) // 8
-        if byte_length % 2 != 0:
-            raise ValueError("Cannot swap an odd number of bytes.")
-        byte_data = self.value.to_bytes(byte_length, byteorder=self.byte_order)
+        byte_data = self.value.to_bytes(byte_length, byteorder=self.byte_order, signed=True)
         swapped_bytes = byte_data[::-1]
-        self.value = int.from_bytes(swapped_bytes, byteorder=self.byte_order)
+        self.value = int.from_bytes(swapped_bytes, byteorder='big' if self.byte_order == 'little' else 'little', signed=True)
         self.byte_order = 'big' if self.byte_order == 'little' else 'little'
+
 
 
     def byte_padding(self, align):
