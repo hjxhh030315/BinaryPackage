@@ -50,10 +50,15 @@ class TestBinary(unittest.TestCase):
         with self.assertRaises(ValueError):
             data.bit_operation('invalid', 255)
 
-    # def test_byte_swap(self):
-    #     data = Binary(500)
-    #     data.byte_swap()
-    #     self.assertEqual(data.value, 62465)
+    def test_2byte_swap(self):
+        data = Binary(0x1234)
+        data.byte_swap()
+        self.assertEqual(data.value, 13330) #after swaping, it should be 0x3412 which is 13330
+
+    def test_4byte_swap(self):
+        data = Binary(0x12345678)
+        data.byte_swap()
+        self.assertEqual(data.value, 2018915346)
 
 if __name__ == '__main__':
     unittest.main()
